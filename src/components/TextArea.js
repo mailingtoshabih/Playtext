@@ -92,22 +92,19 @@ export default function TextArea(props) {
       const extractNumbers = () => {
             
             let newText = text;
+            let hasNumber = /\d/; 
 
-            newText = newText.split("");
-
-            let finalText = "";
-
-            for (let i of newText){
-
-                  if ( (i.charCodeAt(0) < 58 && i.charCodeAt(0) > 47) || (i === " ") || (i === ".") ){
-
-                        finalText += i;
-                  }
-
-                  finalText = finalText.replace(/\s{2,}/g, ' ').split(" ").join("\n");
-           
-                  setExtract(finalText);
+            if ( hasNumber.test(newText) ){
+                  
+                  let regex = /[+-]?\d+(\.\d+)?/g;
+      
+                  let floats = newText.match(regex).map( (v) => {
+                        return parseFloat(v); 
+                        });
+      
+                  setExtract(floats.join("\n"));
             }
+
       }
       
 
